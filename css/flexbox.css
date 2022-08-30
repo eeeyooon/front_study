@@ -1,0 +1,46 @@
+* { box-sizing: border-box; }
+/* footer를 웹사이트 아래쪽에 위치하도록 하기 위해서 설정 */
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+a {text-decoration: none;}
+a:link, a:visited, a:active { color: inherit; }
+
+.header {
+    background-color: burlywood;
+    padding: 30px;
+    text-align: center;
+}
+.nav {
+    background-color: coral;
+    display: flex;
+    justify-content: flex-end;
+}
+.nav a {
+    padding: 8px;
+    margin-right: 20px;
+}
+#main {
+    display: flex;
+    flex-grow: 1;       /* footer를 웹사이트 아래쪽에 위치하도록 하기 위해서 설정 */
+}
+.content {
+    flex: 70%;
+    padding: 40px;
+}
+.aside {
+    background-color: lemonchiffon;
+    flex: 30%;
+    padding: 40px;
+}
+.footer {
+    background-color: lightskyblue;
+    padding: 30px;
+    text-align: center;
+    flex-shrink: 0;     /* 웹사이트를 축소해도 footer가 깨지지않도록 하기 위해서 설정 */
+}
