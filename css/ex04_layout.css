@@ -1,0 +1,41 @@
+html, body {
+    height: 100%;
+}
+
+body {
+  display: grid;
+
+  grid-template-areas: 
+    "header header"
+    "nav aside"
+    "nav article";
+
+    grid-template-rows: 60px 60px 1fr;
+    grid-template-columns: 20% 1fr;
+
+    grid-gap: 1px;
+
+    height: 100vh;
+    margin: 0;
+
+}
+
+header, article, nav, aside {
+  padding: 20px;
+  background: gold;
+}
+
+#pageHeader {
+  grid-area: header;
+}
+
+#mainArticle {
+  grid-area: article;
+}
+
+#mainNav {
+  grid-area: nav;
+}
+
+
+
