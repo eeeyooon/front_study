@@ -19,7 +19,7 @@ grid-template-areas:
   "nav article";
 
   grid-template-rows: 60px 60px 1fr;
-  grid-template-columns: 20% 1fr;
+  grid-template-columns: 15% 2fr;
 
   height: 100vh;
   margin: 0;
@@ -61,7 +61,7 @@ background-color: wheat;
 
 #innerGrid {
   display: grid;
-  grid-template-columns: 50px 50px;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 80px 90% 10px;
   height: 80vh;
   gap: 3px;
@@ -239,11 +239,8 @@ background-color: wheat;
 /* sidebar slide 효과 */
 
 #sidebar {
-  width: 0px;
-  height: 0px;
-  padding: 0px;
-  margin: 0px;
-}
+  display: none;
+} 
 
 #navigation {
   display: block;
@@ -251,6 +248,14 @@ background-color: wheat;
   padding: 10px;
   overflow: hidden; /* 반응형 애니메이션용 */
   transition: all 0.5s ease; /* 반응형 애니메이션 */
+}
+
+
+/* slide */
+
+
+#sidebar:checked ~ #mainNav {
+  width: 50%;
 }
 
 @media screen and (max-width:700px) {
