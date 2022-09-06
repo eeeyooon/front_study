@@ -259,10 +259,10 @@ align-content: space-between;
 
 
 
-
+/* CSS로만 메뉴바 접기,펴기 구현 */
 /* 메뉴 바 접었을 때 */
 
-#fold-check:checked ~ #mainNav {
+/* #fold-check:checked ~ #mainNav {
   width: 68px;
   overflow: hidden;
 }
@@ -274,7 +274,7 @@ align-content: space-between;
 /* 메뉴 바 접고 필 때마다 화살표 아이콘 방향 달라지기 */
 
 
-#fold-check:checked ~ #aside > .div-flex > .fold-check > #left-arrow {
+/* #fold-check:checked ~ #aside > .div-flex > .fold-check > #left-arrow {
   visibility: collapse;
 }
 
@@ -284,12 +284,27 @@ align-content: space-between;
 
 #fold-check:checked ~ #aside > .div-flex > .fold-check > #right-arrow {
   visibility: visible;
+} */
+ 
+
+/* javascirpt 작업 이후 */
+
+#mainNav {
+  transition: all 0.7s ease;
 }
 
 
+.menu {
+  transition: all 0.2s ease;
+}
 
+#title {
+  transition: all 0.1s ease;
+}
 
-
+#right-arrow {
+  visibility: collapse;
+}
 
 /* 이미지 배치 */
 
@@ -338,6 +353,13 @@ align-content: space-between;
       width: 55px;
   }
 
+  #mainNav {
+    visibility: collapse;
+  }
+
+  .fold-check {
+    visibility: collapse;
+  }
 
 
   body {
@@ -345,19 +367,12 @@ align-content: space-between;
   }
 
   #title {
-    display: none;
+    visibility: collapse;
   }
 
 
 }
 
-@media screen and (max-width:800px) {
-
-  .menu #expand-menu:not(:checked) { /* 2단계 */
-      display: none;
-  }
-  
-}
 
 /* @media screen and (max-width: 600px) {
   body {
