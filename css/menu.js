@@ -1,9 +1,9 @@
-function fold() {
+function slide() {
     const mainNav = document.querySelector('#mainNav')
     const menu = document.querySelector('#navigation')
     const footer = document.querySelector('#footer')
-
-
+    
+    
     //메뉴바 펼치기
     if(mainNav.style.width == 68 + 'px') {
         mainNav.style.width = 248 + 'px';
@@ -23,12 +23,15 @@ function fold() {
     }
 }
 
+
+
 let left = document.querySelector('#left-arrow');
 let right = document.querySelector('#right-arrow')
 
 
-left.addEventListener("click", fold)
-right.addEventListener("click", fold)
+//화살표를 클릭하면 메뉴바가 열리고, 닫힘.
+left.addEventListener("click", slide)
+right.addEventListener("click", slide)
 
 
 //메뉴바를 열었을 때 (default)
@@ -53,8 +56,9 @@ function close() {
 }
 
 
-//오른쪽 화살표를 클릭하면 메뉴바가 열리고
+
+//오른쪽 화살표를 클릭하면 왼쪽 화살표로
 right.addEventListener("click", open)
 
-//왼쪽 화살표를 클릭하면 메뉴바가 닫힘.
+//왼쪽 화살표를 클릭하면 오른쪽 화살표로 바뀜.
 left.addEventListener("click", close)

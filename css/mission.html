@@ -8,24 +8,22 @@
     <link rel="stylesheet" href="mission.css" />
   </head>
   <body>
-
-    <input type="checkbox" id="fold-check" name="fold-check">
+    <!-- aside -->
     <aside id="aside"> 
-       <div class="div-flex">
-            <label for="fold-check" class="fold-check">
+       <div class="div-flex arrow-icon">
              <img src="./images/left_arrow.png" class="aside-icon pointer" id="left-arrow">
              <img src="./images/right_arrow.png" class="aside-icon pointer" id="right-arrow">
-            </label>
-          </div>  
+        </div>  
       <div class="div-flex flex-center">
         <span id="search-box">검색<img src="./images/search.png" class="aside-icon pointer"></span>
-         <img src="./images/mic.png" class="aside-icon pointer">
+         <img src="./images/mic.png" class="aside-icon pointer" id="mic-icon">
       </div>
       <div class="div-flex flex-end">
         <img src="./images/notification.png" class="aside-icon pointer">
         <img src="./images/pink_paw.png" id="profile-img" class="pointer">
       </div>
     </aside>
+    <!-- article -->
     <article id="mainarticle"> 
       <div class="cat-image"><img src="./images/cat1.jpg" class="image"></div>
       <div class="cat-image"><img src="./images/cat2.jpg" class="image"></div>
@@ -36,13 +34,13 @@
       <div class="cat-image"><img src="./images/cat7.jpg" class="image"></div>
       <div class="cat-image"><img src="./images/cat8.jpg" class="image"></div>
       <div class="cat-image"><img src="./images/cat9.jpg" class="image"></div>
-    </article>
-    
+    </article> 
+    <!-- nav -->
     <nav id="mainNav"> 
         <div id="innerGrid">
-            <h1><img src="./images/cat_icon.png"> <span id="title" class="title">Cat Gallery </span></h1> 
+            <h1 id="logo"><img src="./images/cat_icon.png" id="cat-icon"> <span id="title">Cat Gallery </span></h1> 
             <div id="navigation" class="menu">
-                <div class="div-flex nav-hover" id="nav-home">
+                <div class="div-flex nav-hover">
                   <img src="./images/home.png" class="nav-icon">
                   <span class="menu-name">홈</span>
                 </div>
@@ -60,6 +58,7 @@
                 </div>
               </div>
         </div>
+        <!-- footer -->
         <div id="footer">@CatGallery</div>
      </nav>
      <script src="menu.js"></script>

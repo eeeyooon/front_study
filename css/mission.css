@@ -245,9 +245,6 @@ align-content: space-between;
 
 /* sidebar slide 효과 */
 
-#fold-check {
-  display: none;
-} 
 
 #navigation {
   display: block;
@@ -256,35 +253,6 @@ align-content: space-between;
   overflow: hidden; /* 반응형 애니메이션용 */
   transition: all 0.5s ease; /* 반응형 애니메이션 */
 }
-
-
-
-/* CSS로만 메뉴바 접기,펴기 구현 */
-/* 메뉴 바 접었을 때 */
-
-/* #fold-check:checked ~ #mainNav {
-  width: 68px;
-  overflow: hidden;
-}
-
-#fold-check:checked ~ #mainNav > #innerGrid > #navigation > .nav-hover {
-  width: 40px;
-}
-
-/* 메뉴 바 접고 필 때마다 화살표 아이콘 방향 달라지기 */
-
-
-/* #fold-check:checked ~ #aside > .div-flex > .fold-check > #left-arrow {
-  visibility: collapse;
-}
-
-#right-arrow {
-  visibility: collapse;
-}
-
-#fold-check:checked ~ #aside > .div-flex > .fold-check > #right-arrow {
-  visibility: visible;
-} */
  
 
 /* javascirpt 작업 이후 */
@@ -348,16 +316,29 @@ align-content: space-between;
 
 
 /* 모바일 버전 사이즈 */
-@media screen and (max-width:700px) {
+@media screen and (max-width:600px) {
   .menu { /* 1단계 */
       width: 55px;
   }
 
+
+
+  /* 메뉴바 없애기 */
   #mainNav {
+    width: 0;
+  }
+
+  .menu {
+    width: 0;
+  }
+
+  #logo {
     visibility: collapse;
   }
 
-  .fold-check {
+  
+  /* 화살표 없애기 */
+  .arrow-icon {
     visibility: collapse;
   }
 
@@ -366,10 +347,25 @@ align-content: space-between;
     background-color: olive;
   }
 
-  #title {
+
+
+
+  #search-box {
+    width: 250px;
+  }
+
+  .arrow-icon {
     visibility: collapse;
   }
 
+  #mic-icon {
+    visibility: collapse;
+  }
+
+/* 이미지 가운데로 */
+  .cat-image {
+    margin-left: 0;
+  }
 
 }
 
