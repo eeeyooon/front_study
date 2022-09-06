@@ -14,18 +14,15 @@ html, body {
 body {
 display: grid;
 grid-template-areas: 
-  "header header"
   "nav aside"
   "nav article";
 
-  grid-template-rows: 60px 60px 1fr;
-  grid-template-columns: 15% 2fr;
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: auto-fit 1fr;
 
   height: 100vh;
   margin: 0;
-
 }
-
 
 #pageHeader {
 grid-area: header;
@@ -46,7 +43,13 @@ border-top: 0;
 border-left: 0;
 border-bottom: 0;
 background-color: wheat;
+
+display: grid;
+align-content: space-between;
+
 }
+
+
 
 #aside {
   grid-area: aside;
@@ -119,9 +122,6 @@ background-color: wheat;
 }
 
 
-/* slide button (open/close) */
-
-
 .nav-hover:hover {
   background-color: white;
   cursor: pointer;
@@ -132,12 +132,17 @@ background-color: wheat;
   width: 25px;
   height: 25px;
   margin-right: 20px;
+  margin-left: 3px;
+  
 }
 
 #nav-home {
   background-color: white;
 }
 
+#title {
+  margin-right: 60px;
+}
 
 
 
@@ -149,6 +154,8 @@ background-color: wheat;
   background-color : wheat;
   align-items: center;
 }
+
+
 
 /* header url */
 #pageHeader > div {
@@ -179,13 +186,13 @@ background-color: wheat;
   align-items: center;
 }
 
-#flex-center {
+.flex-center {
   justify-content: center;
 }
 
 
 
-#flex-end {
+.flex-end {
   justify-content: flex-end;
   margin-right: 20px;
 }
@@ -238,7 +245,7 @@ background-color: wheat;
 
 /* sidebar slide 효과 */
 
-#sidebar {
+#fold-check {
   display: none;
 } 
 
@@ -251,29 +258,100 @@ background-color: wheat;
 }
 
 
-/* slide */
 
 
-#sidebar:checked ~ #mainNav {
-  width: 50%;
+/* 메뉴 바 접었을 때 */
+
+#fold-check:checked ~ #mainNav {
+  width: 68px;
+  overflow: hidden;
 }
 
+#fold-check:checked ~ #mainNav > #innerGrid > #navigation > .nav-hover {
+  width: 40px;
+}
+
+/* 메뉴 바 접고 필 때마다 화살표 아이콘 방향 달라지기 */
+
+
+#fold-check:checked ~ #aside > .div-flex > .fold-check > #left-arrow {
+  visibility: collapse;
+}
+
+#right-arrow {
+  visibility: collapse;
+}
+
+#fold-check:checked ~ #aside > .div-flex > .fold-check > #right-arrow {
+  visibility: visible;
+}
+
+
+
+
+
+
+/* 이미지 배치 */
+
+#mainarticle {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+
+}
+
+.cat-image {
+  display: flex;
+  width: 400px;
+  height: 300px;
+  margin-top: 30px;
+  margin-left: 30px;
+  padding: 20px;
+  background-color: #eee;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+
+#footer {
+  height: 50px;
+  margin-left: 20px;
+}
+
+
+/* 모바일 버전 사이즈 */
 @media screen and (max-width:700px) {
   .menu { /* 1단계 */
       width: 55px;
   }
 
 
+
   body {
     background-color: olive;
   }
-  
-  #test-article {
-    font-size : 1rem;
+
+  #title {
+    display: none;
   }
+
+
 }
 
-@media screen and (max-width:1024px) {
+@media screen and (max-width:800px) {
 
   .menu #expand-menu:not(:checked) { /* 2단계 */
       display: none;

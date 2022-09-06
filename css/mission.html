@@ -8,30 +8,38 @@
     <link rel="stylesheet" href="mission.css" />
   </head>
   <body>
-    <header id="pageHeader">
-       <div>cat-gallary.com </div>
-    </header>
-    <input type="checkbox" id="sidebar" name="sidebar">
+
+    <input type="checkbox" id="fold-check" name="fold-check">
     <aside id="aside"> 
        <div class="div-flex">
-            <label for="sidebar" class="sidebar">
+            <label for="fold-check" class="fold-check">
              <img src="./images/left_arrow.png" class="aside-icon pointer btn-open" id="left-arrow">
+             <img src="./images/right_arrow.png" class="aside-icon pointer btn-close" id="right-arrow">
             </label>
           </div>  
-      <div class="div-flex" id="flex-center">
+      <div class="div-flex flex-center">
         <span id="search-box">검색<img src="./images/search.png" class="aside-icon pointer"></span>
          <img src="./images/mic.png" class="aside-icon pointer">
       </div>
-      <div class="div-flex" id="flex-end">
+      <div class="div-flex flex-end">
         <img src="./images/notification.png" class="aside-icon pointer">
         <img src="./images/pink_paw.png" id="profile-img" class="pointer">
       </div>
     </aside>
-    <article id="mainarticle"> <span id="test-article">Article</span> </article>
+    <article id="mainarticle"> 
+      <div class="cat-image"><img src="./images/cat1.jpg" class="image"></div>
+      <div class="cat-image"><img src="./images/cat2.jpg" class="image"></div>
+      <div class="cat-image"><img src="./images/cat3.jpg" class="image"></div>
+      <div class="cat-image"><img src="./images/cat4.jpg" class="image"></div>
+      <div class="cat-image"><img src="./images/cat5.jpg" class="image"></div>
+      <div class="cat-image"><img src="./images/cat6.jpg" class="image"></div>
+      <div class="cat-image"><img src="./images/cat7.jpg" class="image"></div>
+      <div class="cat-image"><img src="./images/cat8.jpg" class="image"></div>
+    </article>
     
     <nav id="mainNav"> 
         <div id="innerGrid">
-            <h1><img src="./images/cat_icon.png">  Cat Gallery </h1> 
+            <h1><img src="./images/cat_icon.png"> <span id="title">Cat Gallery </span></h1> 
             <div id="navigation" class="menu">
                 <div class="div-flex nav-hover" id="nav-home">
                   <img src="./images/home.png" class="nav-icon">
@@ -50,8 +58,9 @@
                   구독
                 </div>
               </div>
-          <div id="footer"> Footer </div>
         </div>
+        <div id="footer">@CatGallery</div>
      </nav>
+     <script src="menu.js"></script>
   </body>
 </html>
