@@ -24,13 +24,7 @@ grid-template-areas:
   margin: 0;
 }
 
-#pageHeader {
-grid-area: header;
-border: 1px solid;
-border-top: 0;
-border-left: 0;
-border-right: 0;
-}
+
 
 #mainArticle {
 grid-area: article;
@@ -42,11 +36,12 @@ border: 1px solid grey;
 border-top: 0;
 border-left: 0;
 border-bottom: 0;
-background-color: wheat;
+background-color: #FAF6D2;
 
 display: grid;
 align-content: space-between;
 
+user-select: none;
 }
 
 
@@ -57,7 +52,8 @@ align-content: space-between;
   border-top: 0;
   border-left: 0;
   border-right: 0;
-  background-color: wheat;
+  background-color: #FAF6D2;
+  user-select: none;
 }
 
 
@@ -65,7 +61,7 @@ align-content: space-between;
 #innerGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 80px 90% 10px;
+  grid-template-rows: 75px 90% 10px;
   height: 80vh;
   gap: 3px;
   align-items: start;
@@ -124,7 +120,10 @@ align-content: space-between;
 
 .nav-hover:hover {
   background-color: white;
+  
   cursor: pointer;
+
+
 }
 
 .nav-icon {
@@ -137,38 +136,17 @@ align-content: space-between;
 }
 
 #nav-home {
-  background-color: white;
+  background-color: #FAE977;
+  font-weight: 600;
 }
 
 #title {
+  width: 120px;
+  height: 30px;
   margin-right: 60px;
+  overflow: hidden;
 }
 
-
-
-/* Header */
-
-#pageHeader {
-  display: flex;
-  justify-content: center;
-  background-color : wheat;
-  align-items: center;
-}
-
-
-
-/* header url */
-#pageHeader > div {
-  width: 450px;
-  height: 40px;
-  background-color: white;
-  text-align: center;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-}
 
 
 
@@ -205,14 +183,14 @@ align-content: space-between;
   border-radius: 50%;
   padding: 3px;
   margin-left: 10px;
-  background-color:ivory;
+  background-color: #FAE5E2;
 }
 
 
 .aside-icon {
 
-  width: 25px;
-  height: 25px;
+  width: 28px;
+  height: 28px;
 }
 
 
@@ -263,12 +241,10 @@ align-content: space-between;
 
 
 .menu {
-  transition: all 0.2s ease;
+  transition: all 0.7s ease;
 }
 
-#title {
-  transition: all 0.1s ease;
-}
+
 
 #right-arrow {
   visibility: collapse;
@@ -280,101 +256,197 @@ align-content: space-between;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  
+  margin-top: 15px;
+  margin-bottom: 50px;
 
 }
 
 .cat-image {
   display: flex;
-  width: 400px;
-  height: 300px;
-  margin-top: 30px;
-  margin-left: 30px;
+  width: 350px;
+  height: 330px;
+  margin: 20px;
   padding: 20px;
-  background-color: #eee;
+  background-color: #F4F4F4;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
   position: relative;
   overflow: hidden;
+
+  flex-direction: column;
+
 }
 
 .image {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  width: 90%;
+  height: 85%;
+  object-fit: cover;
+
+
 }
 
-
+.cat-id {
+  font-size: 1.2em;
+  width: 275px;
+  display: flex;
+  color: #555555;
+  
+}
 
 #footer {
-  height: 50px;
-  margin-left: 20px;
+
+  height: 150px;
+  color: #555555;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: stretch;
 }
+
+#footer-line {
+  width: 85%;
+  height: 1px;
+  border-bottom: 0;
+}
+
+
+#footer-txt {
+  font-size: 1.3em;
+  color: #555555;
+  margin-left: 20px;
+  font-weight: lighter;
+}
+
+
 
 
 /* 모바일 버전 사이즈 */
-@media screen and (max-width:600px) {
-  .menu { /* 1단계 */
-      width: 55px;
+
+/* - 좌측에 있는 메뉴바를 하단으로 이동 시키기 */
+/* - 메뉴바는 슬라이드 접었을때 버전, 로고 없애기 */
+/* - aside 수정 -> 배치 수정 및 검색창 길이 변경, 마이크 아이콘 없애기 */
+
+
+@media screen and (max-width:550px) {
+
+
+  body {
+    display: flex;
+    flex-wrap: wrap;
   }
 
-
-
-  /* 메뉴바 없애기 */
   #mainNav {
+    height: 75px;   
+    width: 100%;
+    border: 1px solid grey;
+
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+
+    position: fixed;
+    bottom: 0;
+
+  }
+
+  /* 상단 aside로 가려지는 컨텐츠 보이게 */
+  #mainarticle {
+    padding-top: 70px;
+    padding-bottom: 90px;
+  }
+  
+  #innerGrid > h1 {
+    margin: 0;
     width: 0;
   }
 
-  .menu {
-    width: 0;
+  #logo-icon {
+    display: none;
   }
 
-  #logo {
+  #innerGrid {
+    display: flex;
+    height: 0;
+  }
+
+  #innerGrid > div {
+    padding: 0;
+    margin-top: 15px;
+  }
+
+
+  #navigation {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+
+  }
+
+
+  #navigation > div {
+    width: 45px;
+   
+  }
+  .menu-name {
     visibility: collapse;
   }
 
+  #footer {
+    display: none;
+  }
+
+
+
   
+
+
+  
+  /* aside */
+
+
+  .arrow-icon {
+    display: none;
+  }
+
+  #aside {
+
+    height: 8%;
+    
+    grid-template-columns: 1fr 1fr;
+    align-content: center;
+
+    position: fixed;
+    z-index: 1;
+
+  }
+
+
   /* 화살표 없애기 */
   .arrow-icon {
     visibility: collapse;
   }
 
-
-  body {
-    background-color: olive;
-  }
-
-
-
+  
 
   #search-box {
-    width: 250px;
-  }
-
-  .arrow-icon {
-    visibility: collapse;
+    width: 280px;
+    margin-left: 25px;
   }
 
   #mic-icon {
     visibility: collapse;
   }
 
-/* 이미지 가운데로 */
+  /* article */
+
   .cat-image {
-    margin-left: 0;
+    margin: 10px;
+    width: 400px;
+    height: 370px;
   }
 
 }
-
-
-/* @media screen and (max-width: 600px) {
-  body {
-    background-color: olive;
-  }
-  #test-article {
-    font-size : 1rem;
-  }
-} */
