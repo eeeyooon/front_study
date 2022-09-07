@@ -5,7 +5,7 @@ function slide() {
     
     
     //메뉴바 펼치기
-    if(mainNav.style.width == 68 + 'px') {
+    if(mainNav.style.width === 68 + 'px') {
         mainNav.style.width = 248 + 'px';
         mainNav.style.overflow = 'visible';
         menu.style.width = 245 + 'px';
