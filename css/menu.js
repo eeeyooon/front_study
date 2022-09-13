@@ -36,6 +36,9 @@ function close() {
 right.addEventListener("click", open);
 left.addEventListener("click", close);
 
+//메뉴바 접기&펴기 이후 모바일 사이즈가 되면 메뉴바 크기가 작아지는 문제 해결
+//모바일 사이즈가 될 땐 메뉴바에 걸린 width를 모두 없애는 코드 추가
+
 const mediaQuery = window.matchMedia("screen and (max-width:550px)");
 
 function handleMobileChange(e) {
