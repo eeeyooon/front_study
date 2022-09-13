@@ -174,6 +174,7 @@ user-select: none;
   margin-right: 20px;
 }
 
+
 /* aside 프로필 아이콘 - paw */
 #profile-img {
   width: 40x;
@@ -233,6 +234,7 @@ user-select: none;
  
 
 /* javascirpt 작업 이후 */
+/* fold 효과 관련 */
 
 #mainNav {
   transition: all 0.2s ease;
@@ -244,12 +246,12 @@ user-select: none;
 }
 
 
-
 #right-arrow {
   visibility: collapse;
 }
 
-/* 이미지 배치 */
+
+/* 이미지 배치*/
 
 #mainarticle {
   display: flex;
@@ -297,6 +299,9 @@ user-select: none;
   
 }
 
+
+/* footer */
+
 #footer {
 
   height: 150px;
@@ -322,8 +327,8 @@ user-select: none;
 
 
 
-
-/* 모바일 버전 사이즈 */
+/* mediaQuery */
+/* 모바일 사이즈일 때 (width가 550px 이하일 때) */
 
 @media screen and (max-width:550px) {
 
@@ -414,13 +419,9 @@ user-select: none;
 
   }
 
-
-  /* 화살표 없애기 */
   .arrow-icon {
     visibility: collapse;
   }
-
-  
 
   #search-box {
     width: 280px;
@@ -431,7 +432,9 @@ user-select: none;
     visibility: collapse;
   }
 
-  /* article */
+
+
+  /* article (이미지 사이즈) */
 
   .cat-image {
     margin: 10px;
