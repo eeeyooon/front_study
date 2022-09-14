@@ -5,6 +5,7 @@ const data = dataSource.data;
 //가상의 루트노드 (최상위 노드 3개를 묶어주기 위해)
 const rootNode = { isRoot: true, children: [] };
 
+//dataSource.js로부터 넘겨받은 data를 가지고 tree 만들기
 dataToTree(rootNode, data);
 
 const tree2Element = document.getElementById("tree2");
@@ -14,17 +15,25 @@ tree3ToRoot.addEventListener("dragover", onDragOverToRootElement);
 tree3ToRoot.addEventListener("dragleave", onDragLeaveToRootElement);
 tree3ToRoot.addEventListener("drop", onDropToRootElement);
 
+//drag는 한곳에서만(한명이) 일어나니까 그냥 글로벌 변수로
 let dragState = {
   currentDragOverElement: null,
   sourceId: null,
 };
 
+//렌더링작업은 계속 해줌. 렌더링 작업을 할때마다 새로 화면을 그리는 것이라 비효율적으로 보이지만 -> 컴퓨터의 성능상 그정도 속도는 느리지도 않고,
+//이렇게 렌더링 작업을 따로 해주는 덕분에 데이터를 계산하는 로직과 화면을 그리는 로직의 분리가 가능함 => 유지보수 및 코드 재사용성에 굉장히 유용함.
 renderAll(rootNode);
 
+//총 세가지 샘플을 렌더링함. (console, HTML엘리멘트-innerHTML, 엘리멘트 동적생성)
 function renderAll(rootNode) {
+  //1. console
   console.clear();
   outTreeToConsole(rootNode);
+
+  //2. HTML Element-innerHTML
   tree2Element.innerHTML = outTreeToUlElementString(rootNode);
+
   // -> <div id="tree2">를 outTreeToUlElementString(rootNode)로 변경.
 
   //Element.innerHTML : 요소(element) 내에 포함된 HTML을 가져오거나 설정함.
@@ -33,7 +42,7 @@ function renderAll(rootNode) {
 
   //element.firstChild : 트리에서 노드의 첫번째 자식이나 null(자식이 없으면)을 반환함.
 
-  //tree3 (Element 동적 생성)
+  //3. Element 동적 생성
   while (tree3Element.firstChild) {
     tree3Element.firstChild.remove();
     //tree3Element.firstChild를 지우고
@@ -146,29 +155,38 @@ function outTreeToUlElementString(rootNode) {
 
 //dataSource의 data -> map한 다음에 nodeList로.
 
-//spread
+//spread 문법 (...) 체크
 function dataToTree(rootNode, data) {
+  //datasource의 data에다가 children 배열을 추가하여 "nodelist"라는 새로운 배열 생성함.
   const nodeList = data.map((d) => ({ ...d, children: [] }));
   for (const node of nodeList) {
     const parentNode = nodeList.find((n) => node.parentId == n.id);
+
+    //부모의 id와 노드의 id가 같은 노드들만 찾아서 parentNode에 넣기
+
     //Array.prototype.find() : 주어진 판별 함수를 만족하는 첫번째 요소의 *값*을 반환함. (없으면 undefined 반환)
     if (!parentNode) {
-      rootNode.children.push(node);
+      //parentNode가 유효하지 않으면(부모의 id와 노드의 id가 같지 않은 노드들)
+      rootNode.children.push(node); //루트노드의 자식 노드로 추가하기
       //push() : 배열의 마지막에 새로운 요소를 추가한 후, 변경된 배열의 길이 반환
       rootNode.children.sort((a, b) => a.id - b.id);
+
+      //추가하고 나서 정렬하기 (굳이 안해도 되지만)
+
       //sort() : 기본적으로 배열 내부의 요소를 문자열로 반환한 후 오름차순으로 정렬함.
     } else {
+      //나머지 노드들은 parentNode의 자식 노드로 추가하기 > 정렬하기
       parentNode.children.push(node);
       parentNode.children.sort((a, b) => a.id - b.id);
     }
   }
 
+  //seq 다시 계산해서 정리하기 (여기선 굳이 안해도 됨. 순서의 변화가 있을 가능성이 있는 함수에만해도)
   evaluateSeq(rootNode);
   return rootNode;
 }
 
-//여기부터 다시
-
+//id를 가지고 해당 id를 갖는 node 찾는 함수. (재귀함수)
 function findNode(rootNode, id) {
   if (!id) return null;
   if (rootNode.id === id) return rootNode;
@@ -180,11 +198,18 @@ function findNode(rootNode, id) {
   return null;
 }
 
+//소스노드는 드래그를 당한 요소, 타겟은 드래그오버를 당한 (드래그의 영역으로 존재하는) 요소를 가리킴. -> 헷갈리면 그냥 console.log or debug로 찍어봐
 function moveCategory(rootNode, sourceId, targetId) {
   if (sourceId === targetId) return false;
+  //sourceId와 targetId가 같다는 건 두 요소가 동일하다는 거니까 변화 x
+
   const sourceNode = findNode(rootNode, sourceId);
   const targetNode = findNode(rootNode, targetId);
+
+  //노드들이 부모노드인지 확인해야함.
   if (isParent(rootNode, targetNode, sourceNode)) return false;
+
+  //이전 부모 노드였는지 확인.
   const oldParentNode = sourceNode.parentId
     ? findNode(rootNode, sourceNode.parentId)
     : rootNode;
@@ -199,6 +224,7 @@ function moveCategory(rootNode, sourceId, targetId) {
   return true;
 }
 
+//노드가 부모 노드인지 확인하는 함수
 function isParent(rootNode, childNode, guessNode) {
   let parent = findNode(rootNode, childNode.parentId);
   while (parent) {
@@ -208,6 +234,8 @@ function isParent(rootNode, childNode, guessNode) {
   return false;
 }
 
+//seq 다시 계산해서 정리하기 (재귀함수)
+//계속 반복을 통해 처음부터 끝까지 seq를 새로 정리해줌. (함수가 실행될때마다 count값이 증가하고, 그 count값이 곧 seq가 됨.)
 function evaluateSeq(rootNode) {
   let count = 0;
   (function innerEvaluateSeq(rootNode) {
