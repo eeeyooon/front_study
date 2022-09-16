@@ -6,7 +6,20 @@ function Header(props) {
   return (
     <header>
       <h1>
-        <a href="/">{props.title}</a>
+        <a
+          href="/"
+          onClick={(event) => {
+            event.preventDefault();
+            //preventDefault() :  a 태그가 가지고 있는 기본 동작을 방지함
+            // -> 클릭해도 reload가 일어나지 않음.
+            //onClick의 함수가 호출됐을때 Header의 props로 전달된
+            //onChangeMode가 가리키는 함수를 호출해야함.
+            props.onChangeMode();
+            //밑에 onChangeMode() 호출
+          }}
+        >
+          {props.title}
+        </a>
       </h1>
     </header>
   );
@@ -46,7 +59,12 @@ function App() {
   ];
   return (
     <div>
-      <Header title="WEB"></Header>
+      <Header
+        title="WEB"
+        onChangeMode={() => {
+          alert("Header");
+        }}
+      ></Header>
       <Nav topics={topics}></Nav>
       <Article title="Welcome" body="Hello, WEB"></Article>
     </div>
