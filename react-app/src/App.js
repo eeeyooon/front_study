@@ -159,10 +159,31 @@ function App() {
     }
     content = <Article title={title} body={body}></Article>;
     //mode가 read일때만 update(contextcontrol) 보이게
-    contextControl = <li><a href={"/update/"+ id} onClick={event=>{
-      event.preventDefault();
-      setMode('UPDATE');
-    }}>Update</a></li>
+    contextControl = <>
+      <li><a href={"/update/"+ id} onClick={event=>{
+        event.preventDefault();
+        setMode('UPDATE');
+      }}>Update</a></li>
+      <li><input type="button" value="Delete" onClick={event=>{
+        //button타입은 기본 동작이 없기때문에 preventEvent안해도 됨.
+        //우리가 삭제할 대상 > topics 데이터
+
+        const newTopics = []
+        for(let i=0; i<topics.length; i++){
+          if(topics[i].id !== id){
+            //현재 id와 topics의 id가 일치하지 않으면
+            newTopics.push(topics[i]);
+            //newTopics는 원본데이터와는 다른 데이터임. 거기에 push를 해서 새로운 topics를 만듦.
+            //delete를 누른 토픽 제외 나머지 토픽만 있는 새로운 topics가 만들어지고 그걸 새로 setting함.
+            //그럼 delete된 토픽만 사라짐.
+
+          } 
+        }
+        setTopics(newTopics);
+        setMode('WELCOME');
+        
+      }} /></li>
+    </>
 
 
   } else if(mode === 'CREATE'){
