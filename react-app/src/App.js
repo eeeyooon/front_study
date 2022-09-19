@@ -78,6 +78,42 @@ function Create(props) {
 }
 
 
+//Update컴포넌트 만들기
+function Update(props) {
+  //props → state로 환승. (내부에서 자유롭게 사용할 수 있는 state값으로 변경해줌.)
+  const [title, setTitle] = useState(props.title);
+  const [body, setBody] = useState(props.body);
+  return <article>
+  <h2>Update</h2>
+  <form onSubmit={event=>{
+      event.preventDefault(); 
+      const title = event.target.title.value;
+      const body = event.target.body.value;
+      props.onUpdate(title, body);
+
+  }}>
+    <p><input type="text" name="title" placeholder="title" value={title} onChange={event=>{
+      //onChange() : 값을 입력할때마다 호출됨.
+
+      //console.log(event.target.value); //마지막에 바꾼 값만 콘솔에 찍힘.
+      //우리가 알아낸, 가장 최근에 변경된 값을 새로운 state로 바꿔야함.
+      //setTitle()을 사용해서 최근에 변경된 값을 새로운 타이틀로 변경할 것.
+      setTitle(event.target.value);
+
+      //props로 들어온 타이틀에서 state로 갈아탐. 그 state를 value값으로 줌. state는 컴포넌트 안에서 변경가능
+      //onchange에서 새로운 value로 키보드를 입력할때마다 setTitle의 값으로 지정. 그때마다 title 값이 바뀌고 
+      //컴포넌트가 다시 렌더링되면서 그 새로운 값이 value값으로 들어오고 또 값이 바뀌고 또 들어오고.
+
+    }}/></p>
+    <p><textarea name="body" placeholder="body" value={body} onChange={event=>{
+      setBody(event.target.value);
+    }}></textarea></p>
+    <p><input type="submit" value="Update"/></p>
+
+  </form>
+</article>
+}
+
 function App() {
   // const _mode = useState("WELCOME"); //상태를 만듦 > 그 리턴값을 _mode에 담음.
   // //이 지역 변수를 상태로 업그레이드 시킴.
@@ -104,6 +140,9 @@ function App() {
 
   //mode의 값이 뭐냐에 따라 본문의 내용이 달라짐.
   let content = null;
+  let contextControl = null; //맥락적으로 노출되는 UI. > read가 mode일 때만 노출.
+
+
   if (mode === "WELCOME") {
     content = <Article title="Welcome" body="Hello, WEB"></Article>;
   } else if (mode === "READ") {
@@ -119,6 +158,13 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>;
+    //mode가 read일때만 update(contextcontrol) 보이게
+    contextControl = <li><a href={"/update/"+ id} onClick={event=>{
+      event.preventDefault();
+      setMode('UPDATE');
+    }}>Update</a></li>
+
+
   } else if(mode === 'CREATE'){
     content = <Create onCreate={(_title, _body)=>{
         //사용자(Create)는 onCreate를 통해 title, body를 받음. -> Create컴포넌트에서 onCreate()호출
@@ -139,6 +185,46 @@ function App() {
         setNextId(nextId+1);
 
     }}></Create>
+  } else if(mode === 'UPDATE'){
+    let title, body = null;
+    for (let i = 0; i<topics.length; i++) {
+      if (topics[i].id === id) {
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+    }
+
+    content = <Update title={title} body={body} onUpdate={(title, body)=>{
+      //update버튼을 클릭했을때
+      //console.log(title, body); 변경된값 잘 출력됨.
+
+      
+      //우리가 바꾸려는 topics는 배열이라는 객체니까, 그냥 수정하면 안됨.
+      const newTopics = [...topics]
+
+      //우리가 업데이트는, read를 한 상태에서만 실행되기 때문에
+      //id는 자동으로 세팅되어있음.
+      //수정할 토픽
+      const updatedTopic = {id:id, title:title,  body:body}
+      for(let i=0; i<newTopics.length; i++) {
+        if(newTopics[i].id === id){
+          //newtopics의 id와 현재 id가 같다면 우리가 선택한 토픽.
+          
+          //우리가 선택한 토픽을 업데이트된 토픽으로 교체.
+          newTopics[i] = updatedTopic;
+
+          //그 다음엔 볼일이 끝났으니
+          break;
+        }
+      }
+
+      //새로운 토픽을 저장해줌.
+      setTopics(newTopics);
+      //업데이트된 토픽의 상세보기로 이동.
+      setMode('READ');
+
+
+    }}></Update>
   }
 
   //app()함수는 한번만 실행되기 때문에 리턴값이 달라지지 않는 것임.
@@ -160,11 +246,14 @@ function App() {
         }}
       ></Nav>
       {content}
-      <a href="/create" onClick={event=>{
-        event.preventDefault();
-        setMode('CREATE');
-        
-      }}>Create</a>
+      <ul>
+        <li><a href="/create" onClick={event=>{
+            event.preventDefault();
+            setMode('CREATE');
+          }}>Create</a></li>
+          {contextControl}
+      </ul>
+
     </div>
   );
 }
