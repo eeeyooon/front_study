@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 
@@ -13,7 +13,7 @@ function Article(props) {
 }
 
 function Header(props) {
-  console.log("props", props, props.title);
+  // console.log("props", props, props.title);
   return (
     <header>
       <h1>
@@ -30,8 +30,6 @@ function Header(props) {
   );
 }
 
-
-
 function Nav(props) {
   const lis = [];
   for (let i = 0; i < props.topics.length; i++) {
@@ -41,9 +39,11 @@ function Nav(props) {
             //파라미터가 하나인 경우는 괄호 생략해도 상관 x  > event=>{} 가능
             //id는 t.id라고 id값 부여해주기.
             event.preventDefault();
-            props.onChangeMode(event.target.id);
+            props.onChangeMode(Number(event.target.id));
             //id 값을 가져오려면 event속성 사용. (그 이벤트를 유발시킨 태그 = 여기서는 a태그)
             //event.target.id = a태그의 id.
+
+            //숫자라도 태그의 속성으로 넘기면 문자가됨. event.target.id> 문자열 id가 됨. 그래서 문자>숫자로 형변환해주는 Number함수 사용.
       }}>{t.title}</a>
     </li>);
   }
@@ -54,7 +54,7 @@ function Nav(props) {
 }
 
 function App() {
-  // const _mode = useState("WELCOME");
+  // const _mode = useState("WELCOME"); //상태를 만듦 > 그 리턴값을 _mode에 담음.
   // //이 지역 변수를 상태로 업그레이드 시킴.
   // //useState은 배열을 리턴함. 여기서 0번째 원소는 상태의 값을 읽을 때 쓰는 데이터, 1번째 데이터는
   // //그 상태의 값을 변경할 때 사용하는 함수임.
@@ -65,6 +65,7 @@ function App() {
   //위 코드들을 줄이면 바로 다음 코드가 됨.
   const [mode, setMode] = useState("WELCOME");
 
+  //우리가 어떤 토픽을 골랐는지의 state도 저장해야 함.
   const [id, setId] = useState(null);
 
   const topics = [
@@ -72,22 +73,24 @@ function App() {
     { id: 2, title: "css", body: "css is ..." },
     { id: 3, title: "javascript", body: "javascript is ..." },
   ];
-  //mode의 값이 뭐냐에 따라 본문의 내용이 달라짐.
 
+  //mode의 값이 뭐냐에 따라 본문의 내용이 달라짐.
   let content = null;
   if (mode === "WELCOME") {
     content = <Article title="Welcome" body="Hello, WEB"></Article>;
   } else if (mode === "READ") {
-    let title,
-      body = null;
-    for (let i = 0; i < topics.length; i++) {
-      console.log(topics[i].id, id);
+    let title, body = null;
+    for (let i = 0; i<topics.length; i++) {
+      //topics원소의 숫자만큼 반복
+
+      //console.log(topics[i].id, id);
+
       if (topics[i].id === id) {
         title = topics[i].title;
         body = topics[i].body;
       }
     }
-    content = <Article title="Read" body="Hello, Read"></Article>;
+    content = <Article title={title} body={body}></Article>;
   }
 
   //app()함수는 한번만 실행되기 때문에 리턴값이 달라지지 않는 것임.
@@ -95,20 +98,17 @@ function App() {
   // => 이때 state 사용.
   return (
     <div>
-      <Header
-        title="WEB"
-        onChangeMode={() => {
+      <Header title="WEB" onChangeMode={() => {
+          //이벤트가 발생했을때 mode의 값을 변경해줌.
           setMode("WELCOME");
         }}
       ></Header>
-      <Nav
-        topics={topics}
-        onChangeMode={(_id) => {
+      <Nav topics={topics} onChangeMode={(_id) => {
           //함수의 첫번째 파라미터 값으로 id. > 경고창으로 id 띄우기.
           //alert(id);
           setMode("READ");
           setId(_id);
-          //내부 컴포넌트의 글을 클릭할때 id 값이 바뀌면 컴포넌트가 새로 실행되면서 id값이 새로 지정됨.
+          //Nav 컴포넌트의 글을 클릭할때 id 값이 바뀌면 컴포넌트가 새로 실행되면서 id값이 새로 지정됨.
         }}
       ></Nav>
       {content}
