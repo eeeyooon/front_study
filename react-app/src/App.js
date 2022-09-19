@@ -53,6 +53,31 @@ function Nav(props) {
   
 }
 
+
+//Create 컴포넌트 만들기
+function Create(props) {
+  return <article>
+    <h2>Create</h2>
+    <form onSubmit={event=>{
+        event.preventDefault(); //submit될때 페이지가 리로드가 되는걸 막음.
+        const title = event.target.title.value;
+        //event.target -> event가 발생한 태그 = form태그
+        //event.target.title.value; -> form태그의 (name이 title)title의 value값
+        const body = event.target.body.value;
+
+        //그렇게 가져온 title, body를 Create 컴포넌트 사용자(<Create></Create>)에게 공급해줘야함. 
+        //사용자는 onCreate를 통해 공급받음.
+        props.onCreate(title, body); //onCreate()호출 -> 실행되면 
+
+    }}>
+      <p><input type="text" name="title" placeholder="title"/></p>
+      <p><textarea name="body" placeholder="body"></textarea></p>
+      <p><input type="submit" value="Create"/></p>
+    </form>
+  </article>
+}
+
+
 function App() {
   // const _mode = useState("WELCOME"); //상태를 만듦 > 그 리턴값을 _mode에 담음.
   // //이 지역 변수를 상태로 업그레이드 시킴.
@@ -68,11 +93,14 @@ function App() {
   //우리가 어떤 토픽을 골랐는지의 state도 저장해야 함.
   const [id, setId] = useState(null);
 
-  const topics = [
+  //id값 따로 관리
+  const [nextId, setNextId] = useState(4); //초기값은 새로 생성될 id값. 
+
+  const [topics, setTopics] = useState([
     { id: 1, title: "html", body: "html is ..." },
     { id: 2, title: "css", body: "css is ..." },
     { id: 3, title: "javascript", body: "javascript is ..." },
-  ];
+  ]);
 
   //mode의 값이 뭐냐에 따라 본문의 내용이 달라짐.
   let content = null;
@@ -91,6 +119,26 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>;
+  } else if(mode === 'CREATE'){
+    content = <Create onCreate={(_title, _body)=>{
+        //사용자(Create)는 onCreate를 통해 title, body를 받음. -> Create컴포넌트에서 onCreate()호출
+        //사용자가 입력한 title, body를 가지고 topics에 원소 추가를 해야함. => 그러려면 topics를 상태(state)로 승격해야함.
+
+        //topics에 들어가살 새로운 원소 -> 객체 생성
+        const newTopic = {id:nextId, title:_title, body:_body} //(1)title: 객체의 프로퍼티 이름, (2)_title:파라미터로부터 온 이름. 
+        
+        const newTopics = [...topics] //topics의 복제본
+        newTopics.push(newTopic); //그 복제본에 push를 해서 복제본을 변경
+        setTopics(newTopics); //복제본을 topics로 전달. > 그럼 리액트가 원본 데이터와 복제본을 비교하고, 값이 다르다면 그때 컴포넌트를 재실행함.
+        
+        //글을 추가했을 때 상세보기 페이지로 이동할 수 있게 설정
+        setMode('READ');
+        setId(nextId);
+
+        //다음 글을 추가할때를 대비해서 기존 nextId값 +1
+        setNextId(nextId+1);
+
+    }}></Create>
   }
 
   //app()함수는 한번만 실행되기 때문에 리턴값이 달라지지 않는 것임.
@@ -112,6 +160,11 @@ function App() {
         }}
       ></Nav>
       {content}
+      <a href="/create" onClick={event=>{
+        event.preventDefault();
+        setMode('CREATE');
+        
+      }}>Create</a>
     </div>
   );
 }
