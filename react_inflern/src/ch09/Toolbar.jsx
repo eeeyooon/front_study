@@ -14,6 +14,7 @@ const styles = {
 
 function Toolbar(props) {
     const { isLoggedIn, onClickLogin, onClickLogout } = props;
+    //사용자의 로그인 여부를 나타내는 isLoggedIn 값을 props로 받음.
 
     return (
         <div style={styles.wrapper}>
