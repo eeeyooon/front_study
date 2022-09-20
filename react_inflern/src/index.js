@@ -3,11 +3,11 @@ import { createRoot } from "react-dom/client";
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-import NotificationList from './ch06/NotificationList';
+import Accommodate from './ch07/Accommodate';
 
 
 const root = createRoot(document.getElementById('root'));
 
-root.render(<NotificationList />);
+root.render(<Accommodate />);
 
 reportWebVitals();
