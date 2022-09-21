@@ -19,6 +19,7 @@
 
 > ### 화면 설계
 <br/>
+
 ![화면설계](https://user-images.githubusercontent.com/102462534/191416947-15b94e99-bcfa-4162-bb1a-7d0d9d9953d1.png)
 
 <br/>
@@ -41,6 +42,7 @@
 
 > ### 폴더 구성
 <br/> 
+
 ![폴더구성](https://user-images.githubusercontent.com/102462534/191417280-b94ee28d-f793-4b6a-a755-3e76e79dbda2.png)
 
 <br/>
