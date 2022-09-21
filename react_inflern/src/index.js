@@ -3,11 +3,11 @@ import { createRoot } from "react-dom/client";
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-import LandingPage from './ch09/LandingPage';
+import Blocks from './ch15/Blocks';
 
 
 const root = createRoot(document.getElementById('root'));
 
-root.render(<LandingPage />);
+root.render(<Blocks />);
 
 reportWebVitals();
