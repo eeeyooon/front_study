@@ -3,11 +3,11 @@ import { createRoot } from "react-dom/client";
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-import Blocks from './ch15/Blocks';
+import DarkOrLight from './ch14/DarkOrLight';
 
 
 const root = createRoot(document.getElementById('root'));
 
-root.render(<Blocks />);
+root.render(<DarkOrLight />);
 
 reportWebVitals();
