@@ -1,8 +1,6 @@
 # front_study
 ### 리액트 공부중 👩🏻‍💻
-<br>
-
-[공부 기록 노션 페이지 📝](https://www.notion.so/eeeyooon/Front-end-ee21695e15b54c87b5dedc9ab32b5d25)
+<!-- [공부 기록 노션 페이지 📝](https://www.notion.so/eeeyooon/Front-end-ee21695e15b54c87b5dedc9ab32b5d25) -->
 <br>
 
 
