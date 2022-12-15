@@ -4,7 +4,7 @@
 <br>
 
 
-1. [css의 flexbox, grid 연습](https://github.com/eeeyooon/front_study/tree/main/css)
+1. [css의 flexbox, grid와 반응형 웹 연습](https://github.com/eeeyooon/front_study/tree/main/css)
 2. [자료구조 tree 연습](https://github.com/eeeyooon/front_study/tree/main/tree_sample)
 3. [하루 30분 4일만에 끝내는 리액트](https://github.com/eeeyooon/front_study/tree/main/react_test)
 4. [생활코딩 - 리액트 2022 개정판](https://github.com/eeeyooon/front_study/tree/main/react-app)
